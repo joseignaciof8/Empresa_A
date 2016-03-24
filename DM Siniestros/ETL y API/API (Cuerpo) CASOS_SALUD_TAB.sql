@@ -1,18 +1,4 @@
-CREATE OR REPLACE package body SINIESTROS.CASOS_SALUD_TAB is
-/*
-Proyecto: Integracion Salud - Seguro
-Objetivo: Procedimientos API tabla CASOS_SALUD
-Dependiencias:
 
-Historia
-========
-20160310 JFO Creación
-*/
-
-
-
-
-/* Proceso de inserción. CASOS_SALUD */
 procedure inserta(
     p_reg rec_CASOS_SALUD
 ) is
