@@ -1,0 +1,135 @@
+CREATE TABLE CASOS_SALUD
+(
+  ATDN_ID_UNICO                   NUMBER(15),
+  CSSL_CANTIDAD_DIAGNOSTICOS      NUMBER(3),
+  CSSL_COD_DIAG_1_MAY_EST         VARCHAR2(7 BYTE),
+  CSSL_NOM_DIAG_1_MAY_EST         VARCHAR2(110 BYTE),
+  CSSL_URG_PRIORIDAD              NUMBER(8),
+  CSSL_DIAS_DIAG_ESTANDAR         NUMBER(5),
+  CSSL_DIAS_REPOSO_OTRG           NUMBER(5),
+  CSSL_DIAS_REPOSO_CONS           NUMBER(5),
+  CSSL_PORC_DIAS_CONS_EST         NUMBER,
+  CSSL_PORC_DIAS_CONS_OTRG        NUMBER,
+  CSSL_FECHA_ALTA_LABORAL         DATE,
+  CSSL_FECHA_CIERRE_DENUNCIA_SSI  DATE,
+  CSSL_IND_ACC_FATAL              VARCHAR2(1 BYTE),
+  CSSL_DIAS_PERD_PERIODO          NUMBER(5),
+  CSSL_DIAS_PERD_DENUNCIA         NUMBER(5),
+  CSSL_DIAS_PERD_CASO             NUMBER(5),
+  CSSL_DENUNCIA_PERIODO           NUMBER(1),
+  CSSL_INCAPACIDAD                VARCHAR2(1 BYTE),
+  CASO_ID_CASO                    NUMBER(10),
+  CASO_ID_REINGRESO               NUMBER(2)
+)
+TABLESPACE SINIESTROS_DATA
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       2147483645
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+COMMENT ON COLUMN CASOS_SALUD.ATDN_ID_UNICO IS 'ID unico en seguro';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_CANTIDAD_DIAGNOSTICOS IS 'Número de diagnósticos registrados';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_COD_DIAG_1_MAY_EST IS 'Código del diagnóstico de mayor estándar';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_NOM_DIAG_1_MAY_EST IS 'Diagnóstico de mayor estándar';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_URG_PRIORIDAD IS 'Indicador de gravedad clínico';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_DIAG_ESTANDAR IS 'Número de días del estándar de diagnóstico';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_REPOSO_OTRG IS 'Sumatoria de días de reposo otorgados';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_REPOSO_CONS IS 'Número de días de reposo consumidos';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_PORC_DIAS_CONS_EST IS 'Porcentaje de días consumidos sobre el estándar';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_PORC_DIAS_CONS_OTRG IS 'Porcentaje de días consumidos sobre los otorgados';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_FECHA_ALTA_LABORAL IS 'Fecha de alta laboral de la denuncia';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_FECHA_CIERRE_DENUNCIA_SSI IS 'Fecha de cierre de la denuncia en SSI';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_IND_ACC_FATAL IS 'Indicador de accidente con resultado de muerte (S = Si / N = No)';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_PERD_PERIODO IS 'Número de días perdidos en el período';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_PERD_DENUNCIA IS 'Número de días perdidos de la denuncia';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DIAS_PERD_CASO IS 'Número de días perdidos del caso (1er ingreso + reingresos)';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_DENUNCIA_PERIODO IS 'Marca que indica “denuncia del período” (1) o anterior (2)';
+
+COMMENT ON COLUMN CASOS_SALUD.CSSL_INCAPACIDAD IS 'Tipo de incapacidad (P = Permanente / T = Temporal)';
+
+COMMENT ON COLUMN CASOS_SALUD.CASO_ID_CASO IS 'ID del Caso en Salud';
+
+COMMENT ON COLUMN CASOS_SALUD.CASO_ID_REINGRESO IS 'ID del reingreso en salud';
+
+
+CREATE UNIQUE INDEX CASOS_SALUD_PK ON CASOS_SALUD
+(CASO_ID_CASO, CASO_ID_REINGRESO)
+LOGGING
+TABLESPACE SINIESTROS_DATA
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       2147483645
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+CREATE INDEX CAS_SLD_ATDN_ID_IDX ON CASOS_SALUD
+(ATDN_ID_UNICO)
+LOGGING
+TABLESPACE SINIESTROS_DATA
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       2147483645
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+NOPARALLEL;
+
+
+ALTER TABLE CASOS_SALUD ADD (
+  CONSTRAINT CASOS_SALUD_PK
+ PRIMARY KEY
+ (CASO_ID_CASO, CASO_ID_REINGRESO)
+    USING INDEX 
+    TABLESPACE SINIESTROS_DATA
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MINEXTENTS       1
+                MAXEXTENTS       2147483645
+                PCTINCREASE      0
+               ));
