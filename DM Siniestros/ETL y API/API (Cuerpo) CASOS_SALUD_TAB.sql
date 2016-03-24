@@ -1,3 +1,69 @@
+CREATE OR REPLACE package body SINIESTROS.CASOS_SALUD_TAB is
+/*
+Proyecto: Integracion Salud - Seguro
+Objetivo: Procedimientos API tabla CASOS_SALUD
+Dependiencias:
+
+Historia
+========
+20160310 JFO Creación
+*/
+
+
+
+
+/* Proceso de inserción. CASOS_SALUD */
+procedure inserta(
+    p_reg rec_CASOS_SALUD
+) is
+begin
+    insert into CASOS_SALUD(
+        atdn_id_unico
+    , cssl_cantidad_diagnosticos
+    , cssl_cod_diag_1_may_est
+    , cssl_nom_diag_1_may_est
+    , cssl_urg_prioridad
+    , cssl_dias_diag_estandar
+    , cssl_dias_reposo_otrg
+    , cssl_dias_reposo_cons
+    , cssl_porc_dias_cons_est
+    , cssl_porc_dias_cons_otrg
+    , cssl_fecha_alta_laboral
+    , cssl_fecha_cierre_denuncia_ssi
+    , cssl_ind_acc_fatal
+    , cssl_dias_perd_periodo
+    , cssl_dias_perd_denuncia
+    , cssl_dias_perd_caso
+    , cssl_denuncia_periodo
+    , cssl_incapacidad
+    , caso_id_caso
+    , caso_id_reingreso
+    ) 
+    values(
+        p_reg.atdn_id_unico
+    , p_reg.cssl_cantidad_diagnosticos
+    , p_reg.cssl_cod_diag_1_may_est
+    , p_reg.cssl_nom_diag_1_may_est
+    , p_reg.cssl_urg_prioridad
+    , p_reg.cssl_dias_diag_estandar
+    , p_reg.cssl_dias_reposo_otrg
+    , p_reg.cssl_dias_reposo_cons
+    , p_reg.cssl_porc_dias_cons_est
+    , p_reg.cssl_porc_dias_cons_otrg
+    , p_reg.cssl_fecha_alta_laboral
+    , p_reg.cssl_fecha_cierre_denuncia_ssi
+    , p_reg.cssl_ind_acc_fatal
+    , p_reg.cssl_dias_perd_periodo
+    , p_reg.cssl_dias_perd_denuncia
+    , p_reg.cssl_dias_perd_caso
+    , p_reg.cssl_denuncia_periodo
+    , p_reg.cssl_incapacidad
+    , p_reg.caso_id_caso
+    , p_reg.caso_id_reingreso
+    );
+    
+
+end;
 
 
 /* Consulta el registro de CASOS_SALUD basado en la PK */
